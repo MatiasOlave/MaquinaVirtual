@@ -1,31 +1,26 @@
-import java.util.Scanner;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+
 public class main {
-	public static void main(String args[]) throws Exception{
-		File doc = new File ("C://Users//matia//eclipse-workspace//U4ACDC//MaquinaVirtual//Mult.hack");
-		//System.out.println(doc.exists());
-		Scanner archivo = new Scanner(doc);
-		//System.out.println(new File(".").getAbsolutePath());
+	public static void main(String args[]) throws FileNotFoundException{
+		Rom32k rom= new Rom32k();
+		CPU cpu= new CPU();
+		int[] linea=new int[16];
+		
 		int contador=0;
-		while(archivo.hasNextLine()){
-			archivo.nextLine();
-			contador++;
+		int valor=-1;
+		while(contador+1!=rom.cantidaddeciclos()){
+		linea = rom.inicio(contador);
+		System.out.println("linea main "+Arrays.toString(linea));
+		valor = cpu.leer(linea,valor);
+		contador++;
+		System.out.println("\ncACTUAL de ciclos"+contador);
 		}
-		//System.out.println(contador);
-		String[] Datos = new String[contador];
-		archivo.close();
-		Scanner archivo1 = new Scanner(doc);
-		int aux=0;
-		while(archivo1.hasNextLine()){
-			Datos[aux]=archivo1.nextLine();
-			aux++;
-			//System.out.println(archivo1.nextLine());
-		}
-		System.out.println(Arrays.toString(Datos));
+		System.out.println("\nFINAL de ciclos"+contador);
 	}
+	
+
+
 }
 /*//FileChooser openFile = new FileChooser();
 //openFile.setTitle("Open File");

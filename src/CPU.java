@@ -29,9 +29,15 @@ public class CPU {
 			System.out.println("RESULTADO destino == "+traductorD(dato));
 			//memory.Buscar(resultado);
 			System.out.println("RESULTADO SALTO == "+traductorJUMP(dato));
+			String jump=traductorJUMP(dato);
+			if("JEQ"==jump) {
+				if(resultado==0) {
+					///salta sale a 14, si es direntes sige
+				}
+			}
 		}
 		if(dato[4]==1) {
-			System.out.println("RESULTADO== "+traductorA1(dato,1,2, 0));
+			System.out.println("RESULTADO== "+traductorA1(dato,memory.getdregister(),memory.getaregister(), 0));
 			int resultado= traductorA1(dato,1,2,0);
 			System.out.println("RESULTADO destino == "+traductorD(dato));
 			if(traductorD(dato)=="D") {
@@ -42,6 +48,7 @@ public class CPU {
 				memory.Guardar(resultado,valorregistro);
 			}
 			System.out.println("RESULTADO SALTO == "+traductorJUMP(dato));
+			
 	
 		}
 	}
@@ -63,7 +70,7 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    //System.out.println("el valor es: "+decimal);
+	    System.out.println("el valor es ver***: "+decimal);
 		if(decimal==42) {
 			return 0;	
 		}

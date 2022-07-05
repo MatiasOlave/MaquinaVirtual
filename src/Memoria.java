@@ -1,21 +1,21 @@
 
 public class Memoria {
 	int Registros[]= new int[24576];
-	int dregister=-1;
-	int aregister=-1;
+	int dregister;
+	int aregister;
 	public Memoria(){	
 	}
 	
 	public void Print() {
+		System.out.print("Estado Registros\n");
 		for(int i=0;i<Registros.length;i++) {
 			if(Registros[i]!=0){
-				System.out.print("Registro "+i+" = " +Registros[i]+" \n");
+				System.out.print("Registro ["+i+"] = " +Registros[i]+" \n");
 			}
 		}
 	}
 	
 	public void Guardar(int dato,int registro) {
-		
 		Registros[registro]=dato;
 		System.out.println("se guarda en el registro "+registro+" el valor de "+Registros[registro]);
 	}

@@ -7,16 +7,38 @@ public class main {
 		CPU cpu= new CPU();
 		int[] linea=new int[16];
 		
-		int contador=0;
-		int valor=-1;
-		while(contador+1!=rom.cantidaddeciclos()){
-		linea = rom.inicio(contador);
-		System.out.println("linea main "+Arrays.toString(linea));
-		valor = cpu.leer(linea,valor);
-		contador++;
-		System.out.println("\ncACTUAL de ciclos"+contador);
+		
+		
+
+		int valor=0;
+		int cantidad=rom.cantidaddeciclos();
+		rom.inicio(cantidad);
+		//memory.Print();
+
+		
+		long tictoc = 9223372036854775807L;//jiji profe
+		int a=0;
+		int[] resul; 
+		cpu.Print1();
+		while(tictoc!=0) {
+			//System.out.println("tiktok "+tictoc);
+			System.out.println("*************linea actual*************** "+a);
+			linea =rom.linea(a);
+			resul=cpu.leer(linea, valor);
+			valor=resul[0];
+			//System.out.println("resultado "+resul[1]);
+			//System.out.println("a anterior "+a);
+			a=cpu.re(resul[1],a);
+			tictoc--;
+			//System.out.println("el valor de a es:  "+a);
+			if(a==-2) {
+				tictoc=0;
+			}
+			cpu.Print1();
 		}
-		System.out.println("\nFINAL de ciclos"+contador);
+		
+		cpu.Print1();
+		
 	}
 	
 

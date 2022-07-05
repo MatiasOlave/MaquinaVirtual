@@ -1,56 +1,120 @@
 import java.util.Arrays;
 
 public class CPU {
-	Memoria memory= new Memoria();
+	Memoria memory;
+	
+	
 	public CPU() {
+		memory=new Memoria();
+		memory.Guardar(15, 0);
+		memory.Guardar(15, 1);
+		memory.Guardar(5, 2);
 	}
 	
-	public int leer(int[] dato,int valor){
-		//registros
+	public int[] leer(int[] dato,int valor){
+		System.out.println("Array linea: "+Arrays.toString(dato));
+		int[] resultado= new int[2];
+		resultado[1]=-1;
 		if(dato[0]==0) {
+			System.out.print("PASA1\n");
 			int value= traductorbinario(dato);
-			System.out.print("Cargar registo n° "+value);
+			System.out.println("Cargar registo numero: "+value);
 			//System.out.print("return "+memory.Buscar(value));
-			return value;
+			resultado[0]=value;
+			return resultado;
 			
 		}
 		if(dato[0]==1) {
 			System.out.print("PASA2\n");
-			ALU(dato,valor);
-			return -1;
+			int salto;
+			salto=ALU(dato,valor);
+			//traducSalto(salto,valor);
+			resultado[1]=salto;
+			return resultado;
 		}
-		return -2;
+		return resultado;
 	}
 	
-	public void ALU(int[] dato,int valorregistro) {
-		if(dato[4]==0) {
+	public int ALU(int[] dato,int valorregistro) {
+		
+		if(dato[3]==0) {
 			System.out.println("RESULTADO comp== "+traductorA0(dato,memory.getdregister(),memory.getaregister()));
 			int resultado= traductorA0(dato,memory.getdregister(),memory.getaregister());
-			System.out.println("RESULTADO destino == "+traductorD(dato));
-			//memory.Buscar(resultado);
-			System.out.println("RESULTADO SALTO == "+traductorJUMP(dato));
-			String jump=traductorJUMP(dato);
-			if("JEQ"==jump) {
-				if(resultado==0) {
-					///salta sale a 14, si es direntes sige
-				}
-			}
-		}
-		if(dato[4]==1) {
-			System.out.println("RESULTADO== "+traductorA1(dato,memory.getdregister(),memory.getaregister(), 0));
-			int resultado= traductorA1(dato,1,2,0);
 			System.out.println("RESULTADO destino == "+traductorD(dato));
 			if(traductorD(dato)=="D") {
 				memory.setdregister(resultado);
 			}else if(traductorD(dato)=="A") {
 				memory.setdaegister(resultado);
-			}else {
+			}else if(traductorD(dato)=="NULL") {
+			
+			}
+			else {
 				memory.Guardar(resultado,valorregistro);
 			}
 			System.out.println("RESULTADO SALTO == "+traductorJUMP(dato));
+		    String jjj = traductorJUMP(dato);
+		    System.out.println("RESULTADO jump== "+jjj);
+		    if(jjj=="NULL") {
+		    	return -1;
+		    }
+		    if(jjj=="JEQ") {
+		    	if(memory.getdregister()<0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jjj=="JUMP") {
+		    	int a =valorregistro-1;
+		    	System.out.println("ES UNO O NOOO??? VALOR REGISTRO= "+a);
+		    	System.out.println("ES UNO O NOOO???= "+memory.Buscar(a));
+		    	System.out.println("ES REGISTRO REAL"+valorregistro);
+		    	if(memory.Buscar(a)>0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -2;
+		    	}
+		    	
+		    }
+		    
+		    return 4041;	
 			
-	
 		}
+		if(dato[3]==1) {
+			System.out.println("RESULTADO== "+traductorA1(dato,memory.getdregister(),memory.getaregister(),memory.Buscar(valorregistro)));
+			int resultado= traductorA1(dato,memory.getdregister(),memory.getaregister(),memory.Buscar(valorregistro));
+			System.out.println("MMMMMMMMMMMMMMMMMMMM:   "+memory.Buscar(valorregistro));
+			System.out.println("RESULTADO destino == "+traductorD(dato));
+			if(traductorD(dato)=="D") {
+				memory.setdregister(resultado);
+			}else if(traductorD(dato)=="A") {
+				memory.setdaegister(resultado);
+			}else if(traductorD(dato)=="NULL") {
+			
+			}
+			else {
+				memory.Guardar(resultado,valorregistro);
+			}
+		    String jjj = traductorJUMP(dato);
+		    System.out.println("RESULTADO jump== "+jjj);
+		    if(jjj=="NULL") {
+		    	return -1;
+		    }
+		    if(jjj=="JEQ") {
+		    	if(memory.getdregister()<0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jjj=="JUMP") {
+		    	return -2;
+		    }
+		    
+		    return 4042;
+		}
+		
+		return 4043;
 	}
 	
 	public int traductorA0(int[] dato,int D, int A) {
@@ -81,6 +145,7 @@ public class CPU {
 			return -1;
 		}
 		if(decimal==12) {
+			System.out.println("que tiene DDDD: "+D);
 			return D;
 		}
 		if(decimal==48) {
@@ -169,9 +234,16 @@ public class CPU {
 			return M+1;
 		}
 		if(decimal==50) {
+			int a= M-1;
+			System.out.println("VALOR M= "+M);
+			System.out.println("SUMA= "+a);
 			return M-1;
 		}
 		if(decimal==2) {
+			int a= D+M;
+			System.out.println("VALOR D= "+D);
+			System.out.println("VALOR M= "+M+" \n SUMA= "+a);
+			
 			return D+M;
 		}
 		if(decimal==19) {
@@ -199,7 +271,7 @@ public class CPU {
 		for(int i=10;i<13;i++) {
 			comp[i-10]=dato[i];
 		}
-		//System.out.println(Arrays.toString(comp));
+		System.out.println(Arrays.toString(comp));
 		int[] comp2= new int[3];
 		for(int i=0;i<3;i++) {
 			comp2[i]=comp[2-i];
@@ -284,13 +356,14 @@ public class CPU {
 	    
 	    return "error";
 	}
+	
 	public int traductorbinario(int[] dato){
 		int decimal=0;
 		int[] comp= new int[15];
 		for(int i=1;i<16;i++) {
 			comp[i-1]=dato[i];
 		}
-		System.out.println("array value"+Arrays.toString(comp));
+		//System.out.println("Array linea: "+Arrays.toString(comp));
 		int[] comp2= new int[15];
 		for(int i=0;i<15;i++) {
 			comp2[i]=comp[14-i];
@@ -301,8 +374,29 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    System.out.println("el valor es: "+decimal);
+	    //System.out.println("El valor es: "+decimal);
 	    return decimal;
+	}
+	
+	
+	public int re(int arry, int a) {
+		int resul=1234;
+		if(arry!=-1) {
+			resul=arry;
+			//System.out.println("el valor de resul funcion:  "+resul);
+			return resul;
+		}else if(arry==-2) {
+			return -2;
+		}
+		else{
+			resul=a+1;
+			//System.out.println("el valor de a funcion:  "+resul);
+			return resul;
+		}
+	}
+	
+	public void Print1() {
+		memory.Print();
 	}
 	
 }

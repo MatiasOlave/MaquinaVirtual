@@ -4,40 +4,30 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Rom32k {
+	String[] rom= new String[32767];
+	
 	public Rom32k(){
 	}
-	public int[] inicio(int lineaAc ) throws FileNotFoundException {
+	
+	public void inicio(int contador) throws FileNotFoundException {
 		File doc = new File ("C://Users//Cris//Desktop//proyecto//MaquinaVirtual//Mult.hack");
 		//System.out.println(doc.exists());
-		Scanner archivo = new Scanner(doc);
 		//System.out.println(new File(".").getAbsolutePath());
-		int contador=0;
-		while(archivo.hasNextLine()){
-			archivo.nextLine();
-			contador++;
-		}
-		//System.out.println(contador);
-		String[] Datos = new String[contador];
-		archivo.close();
-		Scanner archivo1 = new Scanner(doc);
+		Scanner archivo = new Scanner(doc);
 		int aux=0;
-		while(archivo1.hasNextLine()){
-			Datos[aux]=archivo1.nextLine();
+		while(archivo.hasNextLine()&&aux!=contador){
+			String ar= archivo.nextLine();
+			if(ar!="null") {
+				rom[aux]=ar;
+			}else {
+				if(contador!=aux) {
+					rom[aux]="0000000000000000";
+				}
+			}
+			//System.out.println("ROMar=  "+rom[aux]);
 			aux++;
-			//System.out.println(archivo1.nextLine());
 		}
-		//System.out.println(Arrays.toString(Datos));
-		//System.out.println(Datos.length-1);
-
-		//System.out.println(Datos[0]);
-		
-		String a1= Datos[lineaAc];
-		int[] numbers = new int[a1.length()];
-		for (int i = 0; i < a1.length(); i++) {
-		    numbers[i] = a1.charAt(i) - '0';
-		}
-		//System.out.println(Arrays.toString(numbers));
-		return numbers;
+		//mostarRom(); muestra rom
 	}
 	
 	public int cantidaddeciclos() throws FileNotFoundException{
@@ -51,4 +41,23 @@ public class Rom32k {
 		archivo.close();
 		return contador;
 	}
+	
+	public int[] linea(int lineaAc){
+		String a1= rom[lineaAc];
+		int[] numbers = new int[a1.length()];
+		for (int i = 0; i < a1.length(); i++) {
+		    numbers[i] = a1.charAt(i) - '0';
+		}
+		//System.out.println("que es numbers:  "+Arrays.toString(numbers));
+		return numbers;
+	}
+	
+	public void mostarRom(){
+		for(int i=0;i<rom.length;i++) {
+			if(rom[i]!=null){
+				System.out.print("ROM ["+i+"] = " +rom[i]+" \n");
+			}
+		}
+	}
+
 }

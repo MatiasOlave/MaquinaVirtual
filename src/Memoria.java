@@ -6,18 +6,25 @@ public class Memoria {
 	public Memoria(){	
 	}
 	
-	public void Print() {
-		System.out.print("Estado Registros\n");
+	public void Print(int a) {
+		if(a!=-1) {
+			System.out.print("Estado Registros ciclo["+a+"]\n");
+		}else {
+			System.out.print("Estado Registros Final\n");
+		}
 		for(int i=0;i<Registros.length;i++) {
 			if(Registros[i]!=0){
 				System.out.print("Registro ["+i+"] = " +Registros[i]+" \n");
 			}
 		}
+		
+		System.out.println("Registro A es: "+getaregister());
+		System.out.println("Registro D es: "+getdregister());
 	}
 	
 	public void Guardar(int dato,int registro) {
 		Registros[registro]=dato;
-		System.out.println("se guarda en el registro "+registro+" el valor de "+Registros[registro]);
+		System.out.println("Se guarda en el registro "+registro+" el valor de "+Registros[registro]);
 	}
 	
 	public int Buscar(int registro) {

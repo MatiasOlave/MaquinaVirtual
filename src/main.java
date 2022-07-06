@@ -7,9 +7,6 @@ public class main {
 		CPU cpu= new CPU();
 		int[] linea=new int[16];
 		
-		
-		
-
 		int valor=0;
 		int cantidad=rom.cantidaddeciclos();
 		rom.inicio(cantidad);
@@ -17,27 +14,32 @@ public class main {
 
 		
 		long tictoc = 9223372036854775807L;//jiji profe
-		int a=0;
+		int Sig=0;
+		int cont=1;
 		int[] resul; 
-		cpu.Print1();
+		cpu.Print1(Sig);
 		while(tictoc!=0) {
 			//System.out.println("tiktok "+tictoc);
-			System.out.println("*************linea actual*************** "+a);
-			linea =rom.linea(a);
-			resul=cpu.leer(linea, valor);
+			System.out.println("*************linea actual*************** ");
+			System.out.println("Numero del ciclo: "+cont);
+			linea =rom.linea(Sig);
+			resul=cpu.leer(linea, valor,Sig);
 			valor=resul[0];
 			//System.out.println("resultado "+resul[1]);
 			//System.out.println("a anterior "+a);
-			a=cpu.re(resul[1],a);
+			Sig=cpu.sigLinea(resul[1],Sig);
 			tictoc--;
+			
 			//System.out.println("el valor de a es:  "+a);
-			if(a==-2) {
+			if(Sig==-2) {
 				tictoc=0;
 			}
-			cpu.Print1();
+			System.out.println("************************************ ");
+			cpu.Print1(cont);
+			cont++;
 		}
 		
-		cpu.Print1();
+		cpu.Print1(-1);
 		
 	}
 	

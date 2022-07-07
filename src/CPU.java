@@ -36,23 +36,72 @@ public class CPU {
 		if(dato[3]==0) {
 			int resultado= traductorA0(dato,memory.getdregister(),memory.getaregister());
 			System.out.println("Destino = "+traductorD(dato));
-			if(traductorD(dato)=="D") {
+			
+			if(traductorD(dato)=="M") {
+				memory.Guardar(resultado,valorregistro);
+			}else if(traductorD(dato)=="D") {
+				memory.setdregister(resultado);
+			}else if(traductorD(dato)=="M&D") {
+				memory.Guardar(resultado,valorregistro);
 				memory.setdregister(resultado);
 			}else if(traductorD(dato)=="A") {
-				memory.setdaegister(resultado);
-			}else if(traductorD(dato)=="NULL") {
-			
-			}
-			else {
+				memory.setaregister(resultado);
+			}else if(traductorD(dato)=="A&M") {
+				memory.setaregister(resultado);
 				memory.Guardar(resultado,valorregistro);
+			}else if(traductorD(dato)=="A&D") {
+				memory.setaregister(resultado);
+				memory.setdregister(resultado);
+			}else if(traductorD(dato)=="A&M&D") {
+				memory.setaregister(resultado);
+				memory.Guardar(resultado,valorregistro);
+				memory.setdregister(resultado);
+			}else {
+				
 			}
+
 			System.out.println("JUMP == "+traductorJUMP(dato));
 		    String jump = traductorJUMP(dato);
 		    if(jump=="NULL") {
 		    	return -1;
 		    }
+		    if(jump=="JGT") {
+		    	if(resultado>0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
 		    if(jump=="JEQ") {
-		    	if(memory.getdregister()<0) {
+		    	if(resultado==0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JGE") {
+		    	if(resultado>=0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JLT") {
+		    	if(resultado<0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JNE") {
+		    	if(resultado!=0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JLE") {
+		    	if(resultado<=0) {
 		    		return valorregistro;
 		    	}else {
 		    		return -1;
@@ -70,30 +119,79 @@ public class CPU {
 		    	}
 		    	
 		    }
-		    
 		    return 4041;	
 			
 		}
 		if(dato[3]==1) {
 			int resultado= traductorA1(dato,memory.getdregister(),memory.getaregister(),memory.Buscar(valorregistro));;
 			System.out.println("Destino = "+traductorD(dato));
-			if(traductorD(dato)=="D") {
+			
+			
+			if(traductorD(dato)=="M") {
+				memory.Guardar(resultado,valorregistro);
+			}else if(traductorD(dato)=="D") {
+				memory.setdregister(resultado);
+			}else if(traductorD(dato)=="M&D") {
+				memory.Guardar(resultado,valorregistro);
 				memory.setdregister(resultado);
 			}else if(traductorD(dato)=="A") {
-				memory.setdaegister(resultado);
-			}else if(traductorD(dato)=="NULL") {
-			
-			}
-			else {
+				memory.setaregister(resultado);
+			}else if(traductorD(dato)=="A&M") {
+				memory.setaregister(resultado);
 				memory.Guardar(resultado,valorregistro);
+			}else if(traductorD(dato)=="A&D") {
+				memory.setaregister(resultado);
+				memory.setdregister(resultado);
+			}else if(traductorD(dato)=="A&M&D") {
+				memory.setaregister(resultado);
+				memory.Guardar(resultado,valorregistro);
+				memory.setdregister(resultado);
+			}else {
+				
 			}
+			
 			System.out.println("JUMP == "+traductorJUMP(dato));
 		    String jump = traductorJUMP(dato);
 		    if(jump=="NULL") {
 		    	return -1;
 		    }
+		    if(jump=="JGT") {
+		    	if(resultado>0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
 		    if(jump=="JEQ") {
-		    	if(memory.getdregister()<0) {
+		    	if(resultado==0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JGE") {
+		    	if(resultado>=0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JLT") {
+		    	if(resultado<0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JNE") {
+		    	if(resultado!=0) {
+		    		return valorregistro;
+		    	}else {
+		    		return -1;
+		    	}
+		    }
+		    if(jump=="JLE") {
+		    	if(resultado<=0) {
 		    		return valorregistro;
 		    	}else {
 		    		return -1;
@@ -158,15 +256,12 @@ public class CPU {
 		}
 		if(decimal==13) {
 			System.out.println("!D");
-			//CREAR NOTD =!D
-			int NOTD=-5;
-			return NOTD;
+			return -1*D;
 		}
 		if(decimal==49) {
 			System.out.println("!A");
-			//CREAR NOTA =!A
-			int NOTA=-4;
-			return NOTA;	
+			return -1*D;
+				
 		}
 		if(decimal==15) {
 			System.out.println("-D");
@@ -203,16 +298,21 @@ public class CPU {
 		if(decimal==0) {
 			//hacer D&A
 			System.out.println("D&A");
-			int resultado=-2;
-			return resultado; 
+			if(D==1&&A==1) {
+				return 1;
+			}else {
+				return 0;
+			}
 		}
 		if(decimal==41) {
 			System.out.println("D|A");
-			//hacer D|A
-			int resultado=-3;
-			return resultado; 
+			if(D==0&&A==0) {
+				return 0;
+			}else {
+				return 1;
+			}
 		}
-		return -1;
+		return -102;
 	}
 	
 	public int traductorA1(int[] dato,int D, int A,int M) {
@@ -239,9 +339,7 @@ public class CPU {
 		}
 		if(decimal==49) {
 			System.out.println("!M");
-			//CREAR NOT M
-			int notM=0;
-			return notM;
+			return -1*M;
 		}
 		if(decimal==51) {
 			System.out.println("-M");
@@ -268,18 +366,22 @@ public class CPU {
 			return M-D;
 		}
 		if(decimal==0) {
-			System.out.println("D&M");
-			//hacer D&M
-			int resultado=0;
-			return resultado; 
+			if(D==1&&A==1) {
+				return 1;
+			}else {
+				return 0;
+			}
 		}
 		if(decimal==41) {
 			System.out.println("D|M");
-			//hacer D|M
-			int resultado=0;
-			return resultado; 
+			if(D==0&&A==0) {
+				return 0;
+			}else {
+				return 1;
+			}
+		
 		}
-		return 0;
+		return -101;
 	}
 	
 	public String traductorD(int[] dato){

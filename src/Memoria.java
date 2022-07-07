@@ -38,7 +38,7 @@ public class Memoria {
 		return dregister;
 	}
 	
-	public void setdaegister(int dato){
+	public void setaregister(int dato){
 		aregister=dato;
 	}
 	public int getaregister(){

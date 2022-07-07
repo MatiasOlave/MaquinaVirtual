@@ -17,9 +17,13 @@ public class Memoria {
 				System.out.print("Registro ["+i+"] = " +Registros[i]+" \n");
 			}
 		}
-		
-		System.out.println("Registro A es: "+getaregister());
-		System.out.println("Registro D es: "+getdregister());
+		if(getaregister()!=0) {
+			System.out.println("Registro A es: "+getaregister());
+		}
+		if(getdregister()!=0) {
+			System.out.println("Registro D es: "+getdregister());
+		}
+
 	}
 	
 	public void Guardar(int dato,int registro) {

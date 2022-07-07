@@ -1,5 +1,7 @@
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -7,18 +9,20 @@ public class Rom32k {
 	String[] rom= new String[32767];
 	
 	public Rom32k(){
+		
 	}
 	
-	public void inicio(int contador) throws FileNotFoundException {
-		File doc = new File ("C://Users//Cris//Desktop//proyecto//MaquinaVirtual//Mult.hack");
+	public void inicio(int contador, String locacion) throws FileNotFoundException, IOException {
+		//File doc = new File (locacion);
 		//System.out.println(doc.exists());
 		//System.out.println(new File(".").getAbsolutePath());
-		Scanner archivo = new Scanner(doc);
 		int aux=0;
-		while(archivo.hasNextLine()&&aux!=contador){
-			String ar= archivo.nextLine();
-			if(ar!="null") {
-				rom[aux]=ar;
+        String lista;
+        FileReader archivo = new FileReader(locacion);
+        BufferedReader leer = new BufferedReader(archivo);
+        while ((lista = leer.readLine())!=null){
+        	if(lista!="null") {
+				rom[aux]=lista;
 			}else {
 				if(contador!=aux) {
 					rom[aux]="0000000000000000";
@@ -26,19 +30,19 @@ public class Rom32k {
 			}
 			//System.out.println("ROMar=  "+rom[aux]);
 			aux++;
-		}
+            
+        }
 		//mostarRom(); muestra rom
 	}
 	
-	public int cantidaddeciclos() throws FileNotFoundException{
-		File doc = new File ("C://Users//Cris//Desktop//proyecto//MaquinaVirtual//Mult.hack");
-		Scanner archivo = new Scanner(doc);
+	public int cantidaddeciclos(String locacion) throws FileNotFoundException, IOException{
+		FileReader archivo = new FileReader(locacion);
+        BufferedReader leer = new BufferedReader(archivo);
 		int contador=0;
-		while(archivo.hasNextLine()){
-			archivo.nextLine();
+		String lista;
+		while ((lista = leer.readLine())!=null){
 			contador++;
-		}
-		archivo.close();
+        }
 		return contador;
 	}
 	

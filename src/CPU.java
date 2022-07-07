@@ -1,14 +1,14 @@
 import java.util.Arrays;
 
 public class CPU {
-	Memoria memory;
+	Memoria memory=new Memoria();;
 	
 	
 	public CPU() {
-		memory=new Memoria();
-		memory.Guardar(2, 0);
-		memory.Guardar(3, 1);
-		memory.Guardar(5, 2);
+	}
+	
+	public void ingresarRegistros(int registro,int valor) {
+		memory.Guardar(valor, registro);
 	}
 	
 	public int[] leer(int[] dato,int valor,int a){
@@ -112,7 +112,7 @@ public class CPU {
 		    	//System.out.println("ES UNO O NOOO??? VALOR REGISTRO= "+a); eliminar***********************
 		    	//System.out.println("ES UNO O NOOO???= "+memory.Buscar(a));
 		    	//System.out.println("ES REGISTRO REAL"+valorregistro);
-		    	if(memory.Buscar(a)>0) {
+		    	if(memory.Buscar(a)>resultado) {
 		    		return valorregistro;
 		    	}else {
 		    		return -2;
@@ -202,7 +202,7 @@ public class CPU {
 		    	//System.out.println("ES UNO O NOOO??? VALOR REGISTRO= "+a); eliminar***********************
 		    	//System.out.println("ES UNO O NOOO???= "+memory.Buscar(a));
 		    	//System.out.println("ES REGISTRO REAL"+valorregistro);
-		    	if(memory.Buscar(a)>0) {
+		    	if(memory.Buscar(a)>resultado) {
 		    		return valorregistro;
 		    	}else {
 		    		return -2;

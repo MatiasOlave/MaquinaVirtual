@@ -36,7 +36,6 @@ public class CPU {
 		if(dato[3]==0) {
 			int resultado= traductorA0(dato,memory.getdregister(),memory.getaregister());
 			System.out.println("Destino = "+traductorD(dato));
-			
 			if(traductorD(dato)=="M") {
 				memory.Guardar(resultado,valorregistro);
 			}else if(traductorD(dato)=="D") {
@@ -59,7 +58,6 @@ public class CPU {
 			}else {
 				
 			}
-
 			System.out.println("JUMP == "+traductorJUMP(dato));
 		    String jump = traductorJUMP(dato);
 		    if(jump=="NULL") {
@@ -109,9 +107,6 @@ public class CPU {
 		    }
 		    if(jump=="JUMP") {
 		    	int a =valorregistro-1;
-		    	//System.out.println("ES UNO O NOOO??? VALOR REGISTRO= "+a); eliminar***********************
-		    	//System.out.println("ES UNO O NOOO???= "+memory.Buscar(a));
-		    	//System.out.println("ES REGISTRO REAL"+valorregistro);
 		    	if(memory.Buscar(a)>resultado) {
 		    		return valorregistro;
 		    	}else {
@@ -125,8 +120,6 @@ public class CPU {
 		if(dato[3]==1) {
 			int resultado= traductorA1(dato,memory.getdregister(),memory.getaregister(),memory.Buscar(valorregistro));;
 			System.out.println("Destino = "+traductorD(dato));
-			
-			
 			if(traductorD(dato)=="M") {
 				memory.Guardar(resultado,valorregistro);
 			}else if(traductorD(dato)=="D") {
@@ -149,7 +142,6 @@ public class CPU {
 			}else {
 				
 			}
-			
 			System.out.println("JUMP == "+traductorJUMP(dato));
 		    String jump = traductorJUMP(dato);
 		    if(jump=="NULL") {
@@ -199,9 +191,6 @@ public class CPU {
 		    }
 		    if(jump=="JUMP") {
 		    	int a =valorregistro-1;
-		    	//System.out.println("ES UNO O NOOO??? VALOR REGISTRO= "+a); eliminar***********************
-		    	//System.out.println("ES UNO O NOOO???= "+memory.Buscar(a));
-		    	//System.out.println("ES REGISTRO REAL"+valorregistro);
 		    	if(memory.Buscar(a)>resultado) {
 		    		return valorregistro;
 		    	}else {
@@ -217,7 +206,6 @@ public class CPU {
 	}
 	
 	public int traductorA0(int[] dato,int D, int A) {
-		//tranformar de binario a decimal Y GUARDARLO EN DECIMAL***
 		int decimal=0;
 		int[] comp= new int[6];
 		for(int i=4;i<10;i++) {
@@ -233,7 +221,6 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    //System.out.println("el valor es ver*: "+decimal);
 		if(decimal==42) {
 			System.out.println("0");
 			return 0;	
@@ -321,7 +308,6 @@ public class CPU {
 		for(int i=4;i<10;i++) {
 			comp[i-4]=dato[i];
 		}
-		//System.out.println(Arrays.toString(comp));
 		int[] comp2= new int[6];
 		for(int i=0;i<6;i++) {
 			comp2[i]=comp[5-i];
@@ -332,7 +318,6 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    //System.out.println("el valor es: "+decimal);
 		if(decimal==48) {
 			System.out.println("M");
 			return M;
@@ -378,8 +363,7 @@ public class CPU {
 				return 0;
 			}else {
 				return 1;
-			}
-		
+			}		
 		}
 		return -101;
 	}
@@ -390,7 +374,6 @@ public class CPU {
 		for(int i=10;i<13;i++) {
 			comp[i-10]=dato[i];
 		}
-		//System.out.println(Arrays.toString(comp));
 		int[] comp2= new int[3];
 		for(int i=0;i<3;i++) {
 			comp2[i]=comp[2-i];
@@ -401,7 +384,6 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    //System.out.println("el valor es: "+decimal);
 	    if(decimal==0) {
 	    	return "NULL";
 	    }
@@ -426,7 +408,6 @@ public class CPU {
 	    if(decimal==7) {
 	    	return "A&M&D";
 	    }
-	    
 	    return "error";
 	}
 	
@@ -436,7 +417,6 @@ public class CPU {
 		for(int i=13;i<16;i++) {
 			comp[i-13]=dato[i];
 		}
-		//System.out.println(Arrays.toString(comp));
 		int[] comp2= new int[3];
 		for(int i=0;i<3;i++) {
 			comp2[i]=comp[2-i];
@@ -447,7 +427,6 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    //System.out.println("el valor es: "+decimal);
 	    if(decimal==0) {
 	    	return "NULL";
 	    }
@@ -472,7 +451,6 @@ public class CPU {
 	    if(decimal==7) {
 	    	return "JUMP";
 	    }
-	    
 	    return "error";
 	}
 	
@@ -482,7 +460,6 @@ public class CPU {
 		for(int i=1;i<16;i++) {
 			comp[i-1]=dato[i];
 		}
-		//System.out.println("Array linea: "+Arrays.toString(comp));
 		int[] comp2= new int[15];
 		for(int i=0;i<15;i++) {
 			comp2[i]=comp[14-i];
@@ -493,7 +470,6 @@ public class CPU {
 	            decimal += tmp*Math.pow(2, power);
 	            power++;
 	    }
-	    //System.out.println("El valor es: "+decimal);
 	    return decimal;
 	}
 	
@@ -502,14 +478,12 @@ public class CPU {
 		int resul=1234;
 		if(arry!=-1) {
 			resul=arry;
-			//System.out.println("el valor de resul funcion:  "+resul);
 			return resul;
 		}else if(arry==-2) {
 			return -2;
 		}
 		else{
-			resul=a+1;
-			//System.out.println("el valor de a funcion:  "+resul);
+			resul=a+1;	
 			return resul;
 		}
 	}

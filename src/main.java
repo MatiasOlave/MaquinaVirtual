@@ -10,12 +10,13 @@ public class main {
 		CPU cpu= new CPU();
 		int[] linea=new int[16];
 		
-		System.out.println("**********Menu**********");
+		System.out.println("****************************Menu****************************");
 		System.out.println("Iniciar = Y Apagar: N");
 		Scanner sc = new Scanner(System.in);
 		char pc = sc.next().charAt(0);
 		while(pc=='Y'||pc=='y') {
-			System.out.println("*************Cambiar registros***************");
+			                  
+			System.out.println("*********************Cambiar registros**********************");
 			System.out.println("Cambiar registros= Y Terminar = otro");
 			Scanner Registros = new Scanner(System.in);
 			char reg = Registros.next().charAt(0);
@@ -36,47 +37,59 @@ public class main {
 			int valor=0;
 			int cantidad=rom.cantidaddeciclos(args[0]);
 			rom.inicio(cantidad,args[0]);
-			//memory.Print();
-			
 			long tictoc = 9223372036854775807L;//jiji profe
 			int Sig=0;
 			int cont=1;
 			int[] resul; 
 			cpu.Print1(Sig);
-		
-			
-			System.out.println("*************Seguir*************** ");
-			System.out.println("Sigiente paso= Y Terminar = N");
-			Scanner YN = new Scanner(System.in);
-			char paso = YN.next().charAt(0);
-			while(tictoc!=0&&((paso!='N')&&(paso!='n'))) {
-			
-					//System.out.println("tiktok "+tictoc);
-					System.out.println("*************linea actual*************** ");
+			System.out.println("************************************************************");
+			System.out.println("Ejecutar en un paso= Y Ejecutar paso por paso = N");
+			Scanner hh = new Scanner(System.in);
+			char paso2 = hh.next().charAt(0);
+			if(paso2=='y'||paso2=='Y') {
+				while(tictoc!=0) {
+					System.out.println("***********************Linea actual*************************");
 					System.out.println("Numero del ciclo: "+cont);
 					linea =rom.linea(Sig);
 					resul=cpu.leer(linea, valor,Sig);
 					valor=resul[0];
-					//System.out.println("resultado "+resul[1]);
-					//System.out.println("a anterior "+a);
 					Sig=cpu.sigLinea(resul[1],Sig);
 					tictoc--;
-					
-					//System.out.println("el valor de a es:  "+a);
 					if(Sig==-2) {
 						tictoc=0;
 					}
-					System.out.println("************************************ ");
 					cpu.Print1(cont);
 					cont++;
-					System.out.println("*************Seguir*************** ");
-					System.out.println("Sigiente paso= Y Terminar = N");
-					YN = new Scanner(System.in);
-					paso = YN.next().charAt(0);
+				}
+			}
+			if(paso2=='n'||paso2=='N') {
+                System.out.println("*************************Siguente***************************");
+				System.out.println("Sigiente paso= Y Terminar = N");
+				Scanner YN = new Scanner(System.in);
+				char paso = YN.next().charAt(0);
+				while(tictoc!=0&&((paso!='N')&&(paso!='n'))) {	  
+						System.out.println("***********************Linea actual*************************");
+						System.out.println("Numero del ciclo: "+cont);
+						linea =rom.linea(Sig);
+						resul=cpu.leer(linea, valor,Sig);
+						valor=resul[0];
+						Sig=cpu.sigLinea(resul[1],Sig);
+						tictoc--;
+						if(Sig==-2) {
+							tictoc=0;
+						}
+						System.out.println("************************************************************");
+						cpu.Print1(cont);
+						cont++;
+						System.out.println("*************************Siguente***************************");
+						System.out.println("Sigiente paso= Y Terminar = N");
+						YN = new Scanner(System.in);
+						paso = YN.next().charAt(0);
+				}
 			}
 			
 			cpu.Print1(-1);
-			System.out.println("**********Menu**********");
+			System.out.println("****************************Menu****************************");
 			System.out.println("Iniciar = Y Apagar: N");
 			sc = new Scanner(System.in);
 			pc = sc.next().charAt(0);

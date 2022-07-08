@@ -13,9 +13,6 @@ public class Rom32k {
 	}
 	
 	public void inicio(int contador, String locacion) throws FileNotFoundException, IOException {
-		//File doc = new File (locacion);
-		//System.out.println(doc.exists());
-		//System.out.println(new File(".").getAbsolutePath());
 		int aux=0;
         String lista;
         FileReader archivo = new FileReader(locacion);
@@ -28,11 +25,9 @@ public class Rom32k {
 					rom[aux]="0000000000000000";
 				}
 			}
-			//System.out.println("ROMar=  "+rom[aux]);
 			aux++;
             
         }
-		//mostarRom(); muestra rom
 	}
 	
 	public int cantidaddeciclos(String locacion) throws FileNotFoundException, IOException{
@@ -52,7 +47,6 @@ public class Rom32k {
 		for (int i = 0; i < a1.length(); i++) {
 		    numbers[i] = a1.charAt(i) - '0';
 		}
-		//System.out.println("que es numbers:  "+Arrays.toString(numbers));
 		return numbers;
 	}
 	
